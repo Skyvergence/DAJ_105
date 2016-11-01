@@ -49,3 +49,46 @@ ggplot(age_level, aes(age, num_cases, fill=num_cases))+
   scale_fill_gradient(low = "gray", high = "darkblue") +
   ggtitle("各年齡層確定病例數") +  
   theme(text = element_text(size=12))
+
+
+########## 計算年份的確定病例數
+length_3 <- tapply(data$確定病例數, data$發病年份, length)
+year_cases <- data.frame(length_3)
+year_cases$year <- rownames(year_cases)
+year_cases$num_cases <- year_cases$length_3
+year_cases <- year_cases[,-1]
+rownames(year_cases) <- 1:nrow(year_cases)
+
+year_cases$year <- factor(year_cases$year,
+                            levels = 2016:2003)
+
+ggplot(year_cases, aes(year, num_cases, fill=num_cases))+
+  geom_bar(stat="identity", width=.60) +
+  coord_flip() +
+  xlab("年份")+
+  ylab("確定病例數")+
+  scale_fill_gradient(low = "gray", high = "darkblue") +
+  ggtitle("各年份確定病例數") +  
+  theme(text = element_text(size=12))
+
+
+########## 計算月份的確定病例數
+length_4 <- tapply(data$確定病例數, data$發病月份, length)
+month_cases <- data.frame(length_4)
+month_cases$month <- rownames(month_cases)
+month_cases$num_cases <- month_cases$length_4
+month_cases <- month_cases[,-1]
+rownames(month_cases) <- 1:nrow(month_cases)
+
+month_cases$month <- factor(month_cases$month,
+                          levels = c("12","11","10","9", "8", "7", "6"
+                                     , "5", "4", "3", "2", "1"))
+
+ggplot(month_cases, aes(month, num_cases, fill=num_cases))+
+  geom_bar(stat="identity", width=.60) +
+  coord_flip() +
+  xlab("月份")+
+  ylab("確定病例數")+
+  scale_fill_gradient(low = "gray", high = "darkblue") +
+  ggtitle("各月份確定病例數") +  
+  theme(text = element_text(size=12))
