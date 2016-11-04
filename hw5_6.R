@@ -35,3 +35,4 @@ length <- data.frame(length)
 
 sum <- tapply(as.numeric(news2$Sec),news2$non_Legis, sum)
 sum <- data.frame(sum)
+length <- cbind(length, sum)
