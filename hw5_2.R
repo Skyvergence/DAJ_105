@@ -1,6 +1,7 @@
 library(readxl)
 library(tidyr)
 library(dplyr)
+library(lubridate)
 options(stringsAsFactors = F)
 
 # Import electionNews data
@@ -22,7 +23,7 @@ selector <- sapply(news$Split, function(x) any(x %in% rownames(legis)))
 
 # Select news with legislator candidate. Create month variable
 news <- news[selector,]
-news$month <- substr(news$Date, 6, 7)
+news$month <- month(news$Date)
 
 # Create "Legis" varible, which has all the legislaotr candidate in the variable
 news$Legis <- sapply(news$Split, function(x){intersect(x, rownames(legis))})
@@ -47,3 +48,6 @@ legis_dta[legis_dta$name == "林淑芬", "area"] <- "新北市02"
 cor.test(legis_dta$vote, legis_dta$Oct)
 cor.test(legis_dta$vote, legis_dta$Nov)
 cor.test(legis_dta$vote, legis_dta$Dec)
+
+
+
