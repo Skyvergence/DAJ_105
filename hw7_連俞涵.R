@@ -230,4 +230,4 @@ while (T){
   
 }
 
-\
+grandcomment[, "postid"] <- paste0(id, "_", substr(grandcomment[,"id"], 1,15))
